@@ -11,13 +11,13 @@ export const WorkoutService = {
         
         return workout;
     },
-    createWorkout: async (userId: number) => {
+    createWorkout: async (userId: number, exercisesIds: number[]) => {
         const user = await UserModel.findUserById(userId);
 
         if (!user) {
             throw new Error("User doens't exist!")
         }
-        
-        return WorkoutModel.create(userId);
+
+        return WorkoutModel.create(userId, exercisesIds);
     },
 }

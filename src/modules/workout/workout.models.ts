@@ -1,4 +1,4 @@
-import { Exercise, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -8,8 +8,13 @@ export const WorkoutModel = {
             where: { id },
     }),
 
-    create: (userId: number) =>
+    create: (userId: number, exercisesIds: number[]) =>
         prisma.workout.create({
-            data: {userId: userId}
+            data: {
+                userId: userId,
+                exercises: {
+                    connect: exercisesIds.map(id => ({ id }))
+                }
+            }
     }),
 }
