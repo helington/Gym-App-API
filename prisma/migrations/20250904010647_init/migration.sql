@@ -15,7 +15,7 @@ CREATE TABLE "public"."Exercise" (
     "muscle" TEXT NOT NULL,
     "equipment" TEXT NOT NULL,
     "difficulty" TEXT NOT NULL,
-    "instructions" TEXT NOT NULL,
+    "instructions" TEXT,
 
     CONSTRAINT "Exercise_pkey" PRIMARY KEY ("id")
 );
