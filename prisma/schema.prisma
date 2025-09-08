@@ -14,16 +14,20 @@ model User {
   password String
 
   workouts Workout[]
+  Exercise Exercise[]
 }
 
 model Exercise {
-  id           Int     @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   name         String
   muscle       String
   equipment    String
   difficulty   String
   instructions String?
+  visibility   Visibility @default(PUBLIC)
+  ownerId      Int?
 
+  owner       User?             @relation(fields: [ownerId], references: [id])
   workoutLogs WorkoutExercise[]
 }
 
@@ -47,4 +51,9 @@ model WorkoutExercise {
 
   workout  Workout  @relation(fields: [workoutId], references: [id])
   exercise Exercise @relation(fields: [exerciseId], references: [id])
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
 }
