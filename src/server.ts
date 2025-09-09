@@ -2,6 +2,7 @@ import express from 'express';
 
 import userRouter from './modules/user/user.routes';
 import workoutsRouter from './modules/workout/workout.routes'
+import exerciseRouter from './modules/exercise/exercise.routes';
 
 const createServer = () => {
     const app = express()
@@ -14,6 +15,7 @@ const createServer = () => {
 
     app.use("/users", userRouter);
     app.use("/workouts", workoutsRouter);
+    app.use("/exercises", exerciseRouter);
 
     return app;
 }
