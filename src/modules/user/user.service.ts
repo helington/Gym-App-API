@@ -1,10 +1,12 @@
+import bcrypt from "bcrypt";
+
 import { UserModel } from "./user.model";
+
 
 export const UserService = {
     getAllUsers: () => UserModel.findAll(),
     getUserById: async (id: number) => {
         const user = await UserModel.findUserById(id);
-
         if (!user) {
             throw new Error("User not found!");
         };
@@ -17,6 +19,7 @@ export const UserService = {
             throw new Error("Email already in use!");
         }
 
-        return UserModel.create({ name, email, password});
+        const hashedPassword = await bcrypt.hash(password, 10);
+        return UserModel.create({ name: name, email: email, password: hashedPassword});
     }
 }
