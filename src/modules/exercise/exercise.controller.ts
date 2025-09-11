@@ -20,7 +20,7 @@ export const ExerciseController = {
     },
     getAllPrivates: async (req: Request, res: Response) => {
         try {
-            const userId = Number(req.params.id)
+            const userId = res.locals.user;
             const exercises = await ExerciseService.getAllPrivateExercises(userId);
             res.status(201).json(exercises);
         } catch (err: any) {
@@ -38,7 +38,8 @@ export const ExerciseController = {
     },
     create: async (req: Request, res: Response) => {
         try {
-            const { name, muscle, equipment,  difficulty, ownerId} = req.body;
+            const ownerId = res.locals.user;
+            const { name, muscle, equipment,  difficulty} = req.body;
             const exercise = await ExerciseService.createExercise(
                 name,
                 muscle,
