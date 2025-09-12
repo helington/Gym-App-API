@@ -33,6 +33,8 @@
 ## Table of Contents
 
 - [Overview](#overview)
+    - [Features](#features)
+    - [TODO](#todo)
 - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
@@ -44,7 +46,7 @@
 
 Gym-App-API is a powerful backend project tailored for fitness applications, enabling seamless management of user workout progress and exercises. Built with TypeScript and Prisma ORM, it offers a robust, type-safe foundation for developing scalable fitness tracking features.
 
-**Features**
+### Features
 
 This project simplifies backend development for workout management. The core features include:
 
@@ -55,9 +57,11 @@ This project simplifies backend development for workout management. The core fea
 - **RESTful API:** Easy integration with frontend clients and other services.
 - **Predefined Exercises:** The app ships with a set of common gym exercises seeded in the database, while allowing users to easily add their own custom exercises.
 
-**TODO**
+### TODO
 - **Token Refresh:** Implement secure JWT refresh token flow for improved session management and security.
 - **Data Validation & Consistency:** Schemas and validation for reliable data handling.
+- **Dockerization:** Add Docker support for easier deployment and environment consistency.
+- **Automated Test:** Expand test coverage to ensure reliability and catch regressions.
 
 ---
 
