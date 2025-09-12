@@ -81,28 +81,24 @@ Build Gym-App-API from the source and install dependencies:
 1. **Clone the repository:**
 
     ```sh
-    ❯ git clone https://github.com/helington/Gym-App-API
+    git clone https://github.com/helington/Gym-App-API
     ```
 
 2. **Navigate to the project directory:**
 
     ```sh
-    ❯ cd Gym-App-API
+    cd Gym-App-API
     ```
 
 3. **Install the dependencies:**
 
-**Using [npm](https://www.npmjs.com/):**
-
-```sh
-❯ npm install
-```
+    ```sh
+    npm install
+    ```
 
 ### Usage
 
 Run the project with:
-
-**Using [npm](https://www.npmjs.com/):**
 
 ```sh
 npm run dev
