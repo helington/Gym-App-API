@@ -33,6 +33,7 @@ model Exercise {
 
 model Workout {
   id     Int      @id @default(autoincrement())
+  title  String
   userId Int
   date   DateTime @default(now())
   notes  String?
