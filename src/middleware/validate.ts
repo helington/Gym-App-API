@@ -12,6 +12,6 @@ export const validate =
             });
             return next();
         } catch (err: any) {
-            return res.status(400).send(err.errors);
+            return res.status(400).send(err.issues);
         }
     };
