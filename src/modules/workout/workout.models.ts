@@ -13,8 +13,10 @@ export const WorkoutModel = {
             data: {
                 userId: userId,
                 exercises: {
-                    connect: exercisesIds.map(id => ({ id }))
-                }
-            }
+                    create: exercisesIds.map((id) => ({
+                        exercise: {connect: { id }}
+                    })),
+                },
+            },
     }),
-}
+};

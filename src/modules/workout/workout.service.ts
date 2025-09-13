@@ -1,5 +1,5 @@
 import { WorkoutModel } from "./workout.models";
-import { UserModel } from "../user/user.model";
+import { ExerciseModel } from "../exercise/exercise.model";
 
 export const WorkoutService = {
     getWorkoutById: async (id: number) => {
@@ -12,10 +12,12 @@ export const WorkoutService = {
         return workout;
     },
     createWorkout: async (userId: number, exercisesIds: number[]) => {
-        const user = await UserModel.findUserById(userId);
+        for (const exerciseId of exercisesIds) {
+            const exercise = await ExerciseModel.findById(exerciseId);
 
-        if (!user) {
-            throw new Error("User doens't exist!")
+            if (!exercise) {
+                throw new Error("Some invalid exercise was selected.")
+            }
         }
 
         return WorkoutModel.create(userId, exercisesIds);

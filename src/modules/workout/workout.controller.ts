@@ -1,6 +1,7 @@
 import { Response, Request } from "express";
 
 import { WorkoutService } from "./workout.service";
+import { CreateWorkoutInput } from "./workout.schema";
 
 export const WorkoutController = {
     getById: async (req: Request, res: Response) => {
@@ -13,9 +14,10 @@ export const WorkoutController = {
         }
     },
 
-    create: async (req: Request, res: Response) => {
+    create: async (req: Request<{}, {}, CreateWorkoutInput>, res: Response) => {
         try {
-            const { userId, exercisesIds } = req.body;
+            const { exercisesIds } = req.body;
+            const userId = res.locals.user;
             const workout = await WorkoutService.createWorkout(userId, exercisesIds);
             res.status(200).json(workout);
         } catch(err: any) {
