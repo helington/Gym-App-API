@@ -22,6 +22,7 @@ export const UserController = {
     },
     create: async (req: Request, res: Response) => {
         try {
+            console.log(req.body)
             const { name, email, password } = req.body;
             const user = await UserService.createUser(name, email, password);
             res.status(201).json(user);

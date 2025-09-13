@@ -22,6 +22,12 @@ export const UserModel = {
             },
             where: { id: id }
         }),
+    findUserByEmail: (email: string) =>
+        prisma.user.findUnique({
+            where: {
+                email: email
+            }
+        }),
     create: (data: { name: string, email: string, password: string}) =>
         prisma.user.create({
             data: data

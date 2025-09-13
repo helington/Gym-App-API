@@ -8,6 +8,7 @@ dotenv.config()
 const prisma = new PrismaClient();
 const API_KEY = process.env.API_KEY;
 
+
 async function fetchExercises(muscle: string) {
     const response = await axios.get(`https://api.api-ninjas.com/v1/exercises?muscle=${muscle}`, {
         headers: {
