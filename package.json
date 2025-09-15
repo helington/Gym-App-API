@@ -1,7 +1,7 @@
 {
   "name": "gym-app-api",
   "version": "1.0.0",
-  "description": "An API to manage Workout Progress from users.",
+  "description": "An API to manage Template Progress from users.",
   "main": "src/app.ts",
   "scripts": {
     "build": "tsc",

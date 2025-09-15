@@ -1,9 +1,10 @@
 import express from 'express';
 
 import userRouter from './modules/user/user.routes';
-import workoutsRouter from './modules/workout/workout.routes'
+import templateRouter from './modules/template/template.routes'
 import exerciseRouter from './modules/exercise/exercise.routes';
 import authRouter from './modules/auth/auth.routes';
+import { authenticate } from './middleware/authenticate';
 
 const createServer = () => {
     const app = express()
@@ -15,7 +16,7 @@ const createServer = () => {
     });
 
     app.use("/users", userRouter);
-    app.use("/workouts", workoutsRouter);
+    app.use("/templates", authenticate, templateRouter);
     app.use("/exercises", exerciseRouter);
     app.use("/auth", authRouter);
 

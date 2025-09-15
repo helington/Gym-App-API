@@ -44,13 +44,13 @@
 
 ## Overview
 
-Gym-App-API is a powerful backend project tailored for fitness applications, enabling seamless management of user workout progress and exercises. Built with TypeScript and Prisma ORM, it offers a robust, type-safe foundation for developing scalable fitness tracking features.
+Gym-App-API is a powerful backend project tailored for fitness applications, enabling seamless management of user Template progress and exercises. Built with TypeScript and Prisma ORM, it offers a robust, type-safe foundation for developing scalable fitness tracking features.
 
 ### Features
 
-This project simplifies backend development for workout management. The core features include:
+This project simplifies backend development for Template management. The core features include:
 
-- **Modular Architecture:** Organized routing and controllers for workouts, exercises, users, and authentication.
+- **Modular Architecture:** Organized routing and controllers for Templates, exercises, users, and authentication.
 - **Secure Authentication:** JWT-based login and user session management.
 - **TypeScript Support:** Ensures type safety, maintainability, and modern development standards.
 - **Prisma ORM Integration:** Efficient database interactions with a well-defined schema.
