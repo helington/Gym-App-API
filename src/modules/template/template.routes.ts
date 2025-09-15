@@ -12,6 +12,6 @@ router.patch("/:templateId", validate(updateTemplateSchema), TemplateController.
 router.delete("/:templateId", TemplateController.delete);
 
 router.post("/:templateId/exercises", validate(addExerciseSchema), TemplateController.addExercise);
-router.delete("/:templateId/exercises/:exerciseId", TemplateController.deleteExercise);
+router.delete("/:templateId/exercises/:exerciseId", TemplateController.removeExercise);
 
 export default router;

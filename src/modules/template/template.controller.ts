@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 
 import { TemplateService } from "./template.service";
-import { CreateTemplateInput, AddExerciseInput } from "./template.schema";
+import { CreateTemplateInput, AddExerciseInput, ExerciseParamsInput, TemplateParamsInput, UpdateTemplateInput } from "./template.schema";
 
 export const TemplateController = {
     getAll: async (req: Request, res: Response) => {
@@ -13,10 +13,11 @@ export const TemplateController = {
             res.status(400).json({ error: err.message });
         }
     },
-    getById: async (req: Request, res: Response) => {
+    getById: async (req: Request<TemplateParamsInput>, res: Response) => {
         try {
-            const id = Number(req.params.id);
-            const Template = await TemplateService.getTemplateById(id);
+            const templateId = Number(req.params.templateId);
+            const userId = res.locals.user;
+            const Template = await TemplateService.getTemplateById(userId, templateId);
             res.status(200).json(Template);
         } catch(err: any) {
             res.status(400).json({ error: err.message });
@@ -32,30 +33,55 @@ export const TemplateController = {
             res.status(400).json({ error: err.message });
         }
     },
-    update: async () => {
-
+    update: async (
+        req: Request<UpdateTemplateInput["params"], {}, UpdateTemplateInput["body"]>,
+        res: Response
+    ) => {
+        try {
+            const data = req.body;
+            const userId = res.locals.user;
+            const templateId = Number(req.params.templateId);
+            const template = await TemplateService.updateTemplate(userId, templateId, data);
+            res.status(200).json(template);
+        } catch(err: any) {
+            res.status(400).json({ error: err.message });
+        }
     },
-    delete: async () => {
-
+    delete: async (req: Request<TemplateParamsInput>, res: Response) => {
+        try {
+            const templateId = Number(req.params.templateId);
+            const userId = res.locals.user;
+            const template = await TemplateService.deleteTemplate(templateId, userId);
+            res.status(200).json(template);
+        } catch(err: any) {
+            res.status(400).json({ error: err.message });
+        }
     },
     addExercise: async (
         req: Request<AddExerciseInput["params"], {}, AddExerciseInput["body"]>,
         res: Response
     ) => {
         try {
+            const userId = res.locals.user;
             const data = req.body;
-            console.log(data)
             const templateId = Number(req.params.templateId);
-            const exercise = await TemplateService.addExerciseToTemplate(templateId, data);
+
+            const exercise = await TemplateService.addExerciseToTemplate(userId, templateId, data);
             res.status(200).json(exercise);
         } catch (err: any) {
             res.status(400).json({ error: err.message })
         }
     },
-    updateExercise: async () => {
+    removeExercise: async (req: Request<ExerciseParamsInput>, res: Response) => {
+        try {
+            const userId = res.locals.user;
+            const templateId = Number(req.params.templateId);
+            const exerciseId = Number(req.params.exerciseId);
 
-    },
-    deleteExercise: async () => {
-
+            const exercise = await TemplateService.removeExerciseFromTemplate(userId, templateId, exerciseId);
+            res.status(200).json(exercise);
+        } catch (err: any) {
+            res.status(400).json({ error: err.message })
+        }
     },
 }

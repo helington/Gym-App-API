@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { CreateTemplateInput } from "./template.schema";
+import { CreateTemplateInput, UpdateTemplateInput } from "./template.schema";
 
 const prisma = new PrismaClient();
 
@@ -22,7 +22,20 @@ export const TemplateModel = {
                 exercises: true,
             }
         }),
-
+    findTemplateByIdAndUserId: (id: number, userId: number) =>
+        prisma.workoutTemplate.findUnique({
+            where: {
+                id: id,
+                userId: userId
+            },
+            include: {
+                exercises: {
+                    include: {
+                        exercise: true
+                    }
+                }
+            }
+        }),
     create: (userId: number, data: CreateTemplateInput) =>
         prisma.workoutTemplate.create({
             data: {
@@ -30,7 +43,22 @@ export const TemplateModel = {
                 ...data,
             },
         }),
-
+    update: (templateId: number, data: UpdateTemplateInput["body"]) =>
+        prisma.workoutTemplate.update({
+            where: { id: templateId },
+            data: data
+        }),
+    delete: (templateId: number) =>
+        prisma.workoutTemplate.delete({
+            where: { id: templateId }
+        }),
+    findExerciseById: (exerciseId: number) =>
+        prisma.templateExercises.findUnique({
+            where: { id: exerciseId },
+            select: {
+                exercise: true
+            }
+        }),
     addExercise: (templateId: number, exerciseId: number) =>
         prisma.workoutTemplate.update({
             where: { id: templateId},
@@ -39,5 +67,9 @@ export const TemplateModel = {
                     create: { exercise: { connect: {id: exerciseId} } },
                 }
             }
+        }),
+    removeExercise: (exerciseId: number) =>
+        prisma.templateExercises.delete({
+            where: { id: exerciseId }
         }),
 };
