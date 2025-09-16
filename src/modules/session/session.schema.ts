@@ -19,7 +19,7 @@ export const addExerciseLogSchema = z.object({
     }),
     body: z.object({
         exerciseId: z.int(),
-        sets: z.int().positive(),
+        setNumber: z.int().positive(),
         reps: z.int().positive(),
         weight: z.number().positive(),
     }),
