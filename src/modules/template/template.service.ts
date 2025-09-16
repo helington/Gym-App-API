@@ -71,5 +71,20 @@ export const TemplateService = {
         await TemplateModel.removeExercise(exerciseId);
 
         return exercise;
+    },
+    getSessionsFromTemplate: async (userId: number, templateId: number) => {
+        const Template = await TemplateModel.findTemplateById(templateId);
+        if (!Template) {
+            throw new Error("Template not found.");
+        }
+
+        const authorizedTemplate = await TemplateModel.findTemplateByIdAndUserId(templateId, userId);
+        if (!authorizedTemplate) {
+            throw new Error("Unauthorized to access sessions from this template.")
+        }
+
+        const sessions = await TemplateModel.findAllSessions(templateId);
+
+        return sessions
     }
 }

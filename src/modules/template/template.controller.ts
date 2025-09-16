@@ -84,4 +84,15 @@ export const TemplateController = {
             res.status(400).json({ error: err.message })
         }
     },
+    getSessions: async (req: Request<TemplateParamsInput>, res: Response) => {
+        try {
+            const userId = res.locals.user;
+            const templateId = Number(req.params.templateId);
+
+            const exercise = await TemplateService.getSessionsFromTemplate(userId, templateId);
+            res.status(200).json(exercise);
+        } catch (err: any) {
+            res.status(400).json({ error: err.message })
+        }
+    },
 }

@@ -72,4 +72,8 @@ export const TemplateModel = {
         prisma.templateExercises.delete({
             where: { id: exerciseId }
         }),
+    findAllSessions: (templateId: number) =>
+        prisma.workoutSession.findMany({
+            where: { templateId: templateId }
+        }),
 };

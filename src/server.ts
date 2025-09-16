@@ -4,6 +4,7 @@ import userRouter from './modules/user/user.routes';
 import templateRouter from './modules/template/template.routes'
 import exerciseRouter from './modules/exercise/exercise.routes';
 import authRouter from './modules/auth/auth.routes';
+import sessionRouter from './modules/session/session.routes';
 import { authenticate } from './middleware/authenticate';
 
 const createServer = () => {
@@ -19,6 +20,7 @@ const createServer = () => {
     app.use("/templates", authenticate, templateRouter);
     app.use("/exercises", exerciseRouter);
     app.use("/auth", authRouter);
+    app.use("/sessions", authenticate, sessionRouter);
 
     return app;
 }

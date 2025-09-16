@@ -34,6 +34,15 @@ export const ExerciseModel = {
             id: exerciseId
         }
     }),
+    findBySessionIdAndExerciseId: (sessionId: number, exerciseId: number) =>
+        prisma.exercise.findUnique({
+            where: {
+                id: exerciseId,
+                TemplateExercises: {
+                    some: { template: { workoutSessions: { some: { id: sessionId } } } }
+                }
+            }
+        }),
     create: (data: {
         name: string,
         muscle: string,

@@ -14,4 +14,6 @@ router.delete("/:templateId", TemplateController.delete);
 router.post("/:templateId/exercises", validate(addExerciseSchema), TemplateController.addExercise);
 router.delete("/:templateId/exercises/:exerciseId", TemplateController.removeExercise);
 
+router.get("/:templateId/sessions", TemplateController.getSessions);
+
 export default router;
