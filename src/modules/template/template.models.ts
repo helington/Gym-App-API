@@ -74,6 +74,14 @@ export const TemplateModel = {
         }),
     findAllSessions: (templateId: number) =>
         prisma.workoutSession.findMany({
-            where: { templateId: templateId }
+            where: { templateId: templateId },
+            include: {
+                logs: {
+                    include: {
+                        exercise: true
+                    }
+                }
+
+            }
         }),
 };
