@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 
 import userRouter from './modules/user/user.routes';
 import templateRouter from './modules/template/template.routes'
@@ -10,6 +11,7 @@ import { authenticate } from './middleware/authenticate';
 const createServer = () => {
     const app = express()
     
+    app.use(cookieParser());
     app.use(express.json());
 
     app.get("/healthcheck", (req, res) => {

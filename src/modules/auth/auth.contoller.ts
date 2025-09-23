@@ -19,7 +19,7 @@ export const AuthController = {
         }
     },
     refresh: async(req: Request, res: Response) => {
-        let refreshToken = req.cookies["refreshToken"];
+        let refreshToken = req.cookies.refreshToken;
 
         if (!refreshToken) {
             return res.status(401).send("Access Denied. No refresh token provided.");
