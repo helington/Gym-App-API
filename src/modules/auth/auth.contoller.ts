@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { AuthService } from "./auth.service";
+import { LoginInput } from "./auth.schemas";
 
 export const AuthController = {
-    login: async(req: Request, res: Response) => {
+    login: async(req: Request<{}, {}, LoginInput>, res: Response) => {
         const { email, password } = req.body;
         try {
             const {accessToken, refreshToken} = await AuthService.loginUser(email, password);
