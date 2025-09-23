@@ -7,12 +7,16 @@ const prisma = new PrismaClient();
 const JWT_REFRESH_EXPIRATION = parseInt(process.env.JWT_REFRESH_EXPIRATION as string);
 
 export const AuthModel = {
-    createRefreshToken: (userId: number) => prisma.refreshToken.create({
-        data: {
-            userId: userId,
-            expiresAt: new Date(Date.now() + JWT_REFRESH_EXPIRATION)
-        }
-    }),
+    createRefreshToken: async (userId: number) => {
+        const refreshToken = await prisma.refreshToken.create({
+            data: {
+                userId: userId,
+                expiresAt: new Date(Date.now() + JWT_REFRESH_EXPIRATION)
+            }
+        })
+
+        return refreshToken.token;
+    },
     findRefreshToken: (refreshToken: string) => prisma.refreshToken.findUnique({
         where: { token: refreshToken },
     }),

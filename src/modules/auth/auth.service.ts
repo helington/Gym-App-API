@@ -18,7 +18,7 @@ export const AuthService = {
         const userId = user.id;
 
         const accessToken = generateAccessToken(userId);
-        const refreshToken = AuthModel.createRefreshToken(userId);
+        const refreshToken = await AuthModel.createRefreshToken(userId);
 
         return {accessToken, refreshToken};
     },
