@@ -11,7 +11,7 @@ export const AuthModel = {
         const refreshToken = await prisma.refreshToken.create({
             data: {
                 userId: userId,
-                expiresAt: new Date(Date.now() + JWT_REFRESH_EXPIRATION)
+                expiresAt: new Date(Date.now() + JWT_REFRESH_EXPIRATION * 1000)
             }
         })
 
