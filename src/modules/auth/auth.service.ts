@@ -2,11 +2,10 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { UserModel } from "../user/user.model";
 import dotenv from "dotenv";
+import { AuthModel } from "./auth.model";
+import { generateAccessToken, verityRefreshTokenExpiration } from "../utils/jwt.utils";
 
 dotenv.config();
-
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY as string;
-const JWT_ACCESS_EXPIRATION = parseInt(process.env.JWT_ACCESS_EXPIRATION as string);
 
 export const AuthService = {
     loginUser: async (email: string, password: string) => {
@@ -16,6 +15,33 @@ export const AuthService = {
             throw new Error("Invalid credentials!");
         }
 
-        return jwt.sign({id: user.id}, JWT_SECRET_KEY, { expiresIn: JWT_ACCESS_EXPIRATION })
+        const userId = user.id;
+
+        const accessToken = generateAccessToken(userId);
+        const refreshToken = AuthModel.createRefreshToken(userId);
+
+        return {accessToken, refreshToken};
     },
+
+    refresh: async (refreshToken: string) => {
+        const validRefreshToken = await AuthModel.findRefreshToken(refreshToken);
+
+        if (!validRefreshToken) {
+            throw new Error ("Invalid refresh token");
+        }
+
+        if (verityRefreshTokenExpiration(validRefreshToken)) {
+            AuthModel.deleteRefreshToken(refreshToken);
+            throw new Error ("Refresh token was expired. Please make a new login.");
+        }
+
+        AuthModel.deleteRefreshToken(refreshToken);
+
+        const userId = validRefreshToken.userId;
+
+        const accessToken = generateAccessToken(userId);
+        const newRefreshToken = AuthModel.createRefreshToken(userId);
+
+        return {accessToken, newRefreshToken};
+    }
 };
