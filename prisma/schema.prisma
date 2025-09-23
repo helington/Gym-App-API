@@ -21,7 +21,7 @@ model User {
 model RefreshToken {
   id        Int      @id @default(autoincrement())
   token     String   @unique @default(uuid()) @db.VarChar(36)
-  userId    Int      @unique
+  userId    Int
   createdAt DateTime @default(now())
   expiresAt DateTime
 
